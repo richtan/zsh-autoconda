@@ -1,4 +1,4 @@
-# This is an update of https://github.com/sharonzhou/conda-autoenv for zsh
+# This is fork of https://github.com/sharonzhou/conda-autoenv for zsh
 
 function zsh_autoconda() {
   if [ -e "environment.yml" ]; then
@@ -6,14 +6,14 @@ function zsh_autoconda() {
     # Check if you are already in the environment
     if [[ $PATH != *$ENV* ]]; then
       # Check if the environment exists
-      if source activate $ENV && [[ $? -eq 0 ]]; then
+      if conda activate $ENV && [[ $? -eq 0 ]]; then
         # Set root directory of active environment
         CONDA_ENV_ROOT="$(pwd)"
       else
         echo "Creating conda environment '$ENV' from environment.yml ('$ENV' was not found using 'conda env list')"
         conda env create -q -f environment.yml
         echo "'$ENV' successfully created and will automatically activate in this directory"
-        source activate $ENV
+        conda activate $ENV
         if [ -e "requirements.txt" ]; then
           echo "Installing pip requirements from requirements.txt"
           pip install -q -r requirements.txt
