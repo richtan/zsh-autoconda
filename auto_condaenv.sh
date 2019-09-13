@@ -1,8 +1,6 @@
-#!/bin/sh
+# This is an update of https://github.com/sharonzhou/conda-autoenv for zsh
 
-# This is an update of https://github.com/sharonzhou/conda-autoenv
-
-function conda_autoenv() {
+function zsh_autoconda() {
   if [ -e "environment.yml" ]; then
     ENV=$(head -n 1 environment.yml | cut -f2 -d ' ')
     # Check if you are already in the environment
@@ -39,4 +37,5 @@ function conda_autoenv() {
   fi
 }
 
-export PROMPT_COMMAND=conda_autoenv
+autoload -Uz add-zsh-hook
+add-zsh-hook chpwd zsh_autoconda
